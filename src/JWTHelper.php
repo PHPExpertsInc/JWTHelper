@@ -33,9 +33,9 @@ class JWTHelper
      */
     public static function login(JWTSubject $user, array $customClaims = []): string
     {
-        /** @var JWTGuard $jwt */
-        $jwt = auth('tymon.jwt');
-        $token = $jwt->claims($customClaims)->login($user);
+        /** @var JWT $jwt */
+        $jwt = app('tymon.jwt');
+        $token = $jwt->customClaims($customClaims)->fromUser($user);
 
         return $token;
     }
