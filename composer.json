@@ -1,0 +1,43 @@
+{
+    "name": "phpexperts/jwt-helper",
+    "description": "An accessory library for Tymon's JWTAuth library.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Theodore R. Smith",
+            "email": "theodore@phpexperts.pro",
+            "homepage": "https://www.phpexperts.pro/"
+        }
+    ],
+    "homepage": "https://github.com/phpexperts/JWTHelper",
+    "keywords": ["Laravel", "JWT"],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": "5.*",
+        "tymon/jwt-auth": "1.0.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "7.*|8.*",
+        "mockery/mockery": "^1.1",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PHPExperts\\JWTHelper\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PHPExperts\\JWTHelper\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PHPExperts\\JWTHelper\\JWTHelperServiceProvider"
+            ]
+        }
+    }
+}
