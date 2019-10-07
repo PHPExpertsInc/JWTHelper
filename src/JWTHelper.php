@@ -14,13 +14,32 @@
 
 namespace PHPExperts\JWTHelper;
 
+use Illuminate\Contracts\Auth\Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\JWT;
+use Tymon\JWTAuth\JWTGuard;
 
 class JWTHelper
 {
+    /**
+     * Attempts to log in a user. Returns a JWT token on success.
+     *
+     * @param JWTSubject $user
+     * @param array      $customClaims
+     * @return string
+     */
+    public static function login(JWTSubject $user, array $customClaims = []): string
+    {
+        /** @var JWTGuard $jwt */
+        $jwt = auth('tymon.jwt');
+        $token = $jwt->claims($customClaims)->login($user);
+
+        return $token;
+    }
+
     /**
      * @throws JWTException
      */
