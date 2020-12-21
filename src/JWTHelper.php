@@ -14,6 +14,7 @@
 
 namespace PHPExperts\JWTHelper;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -61,5 +62,28 @@ class JWTHelper
         } catch (JWTException $e) {
             throw new JWTException('Missing JWT Token');
         }
+    }
+
+    /**
+     * This method allows users to stay logged in for 30 days.
+     *
+     * @param int         $daysToLive Defaults to 30 days.
+     * @param Carbon|null $carbon
+     */
+    public static function setRememberMe($daysToLive = 30, Carbon $carbon = null): void
+    {
+        /** @var JWT $jwt */
+        $jwt = app('tymon.jwt')->parseTokeN();
+        
+        if (!$carbon) {
+            $carbon = Carbon::now('UTC');
+        }
+
+        $customClaims = [
+            'exp'         => $carbon->addDays($daysToLive)->getTimestamp(),
+            'remember_me' => true,
+        ];
+
+        $jwt->customClaims($customClaims);
     }
 }
